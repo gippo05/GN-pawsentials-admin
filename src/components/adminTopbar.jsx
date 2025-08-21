@@ -8,7 +8,7 @@ const AdminTopBar = () => {
   const currentItem = SidebarMenu.find((item) => item.link === location.pathname);
 
   return (
-    <div className="w-full h-16 bg-black flex items-center px-6 shadow-md">
+    <div className="w-full h-16 bg-[#121212] flex items-center px-6 shadow-md">
       <h1 className="text-white text-xl font-semibold">
         {currentItem ? currentItem.title : "Dashboard"}
       </h1>

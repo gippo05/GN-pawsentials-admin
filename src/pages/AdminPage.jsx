@@ -1,27 +1,32 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import AdminSidebar from "../components/adminSidebar";
 import AdminTopBar from "../components/adminTopbar";
-import { Route } from "react-router-dom";
-const AdminPage = ({ children }) => {
+import OrdersPage from "./ordersPage";
+import DashboardPage from "./dashboardPage";
+
+const AdminPage = () => {
   return (
-    <>
-    
     <div className="flex h-screen">
-      {/* Sidebar */}
       <AdminSidebar />
 
-      {/* Main content wrapper */}
       <div className="flex-1 flex flex-col">
-        {/* Top bar */}
         <AdminTopBar />
 
-        {/* Page content */}
-        <main className="flex-1 flex items-center justify-center bg-white">
-          {children || <h1 className="text-3xl font-bold">Dashboard</h1>}
+        <main className="flex-1 p-6">
+          <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/products" element={<h2>Products Content</h2>} />
+            <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/customers" element={<h2>Customer Service Content</h2>} />
+            <Route path="/analytics" element={<h2>Analytics Content</h2>} />
+            <Route path="/settings" element={<h2>Settings Content</h2>} />
+            
+            {/* Default redirect */}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
         </main>
       </div>
     </div>
-    </>
-    
   );
 };
 
