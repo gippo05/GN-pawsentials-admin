@@ -1,67 +1,70 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const OrdersPage = () => {
-  const [orders, setOrders] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const limit = 5; 
 
-  useEffect(() => {
-    const fetchOrders = async () => {
+const ProductsPage = () =>{
+
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const limit = 5; 
+
+    useEffect(() => {
+    const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `https://backend-gnpawsentials.onrender.com/api/orders?page=${page}&limit=${limit}`
-        );
-        setOrders(res.data.orders); // backend returns { orders, total, page, totalPages }
-        setTotalPages(res.data.totalPages);
+        //   `https://backend-gnpawsentials.onrender.com/api/products?page=${page}&limit=${limit}`
+        `https://backend-gnpawsentials.onrender.com/api/dashboard/products/admin?page=${page}&limit=${limit}`
+        ); 
+        setProducts(res.data.products); 
+        setTotalPages(res.data.totalPages)
       } catch (error) {
-        console.error("Error fetching orders: ", error);
-      }
+        console.error("Error fetching products:", error);
+      } 
     };
-    fetchOrders();
+
+    fetchProducts();
   }, [page]);
 
-  return (
-    <div className="w-full h-auto p-6">
+
+
+    return(
+        <>
+        
+         <div className="w-full h-auto p-6">
       <table className="w-full border-collapse border border-gray-700 text-left">
         <thead className="bg-[#121212] text-white">
           <tr>
             <th className="p-3 border border-gray-700">ID</th>
-            <th className="p-3 border border-gray-700">Customer</th>
-            <th className="p-3 border border-gray-700">Payment Method</th>
-            <th className="p-3 border border-gray-700">Items</th>
-            <th className="p-3 border border-gray-700">Total</th>
+            <th className="p-3 border border-gray-700">Product Name</th>
+            <th className="p-3 border border-gray-700">Price</th>
+            <th className="p-3 border border-gray-700">Product Image</th>
+            <th className="p-3 border border-gray-700">Product Rating</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {products.map((product) => (
             <tr
-              key={order._id}
+              key={product._id}
               className="odd:bg-[#1E1E1E] even:bg-[#2A2A2A] text-gray-200"
             >
-              <td className="p-3 border border-gray-700">{order._id}</td>
+              <td className="p-3 border border-gray-700">{product._id}</td>
               <td className="p-3 border border-gray-700">
-                {order.customer?.name}
+                {product.name}
               </td>
               <td className="p-3 border border-gray-700">
-                {order.paymentMethod}
+                {product.price}
               </td>
               <td className="p-3 border border-gray-700">
                 <ul className="space-y-2">
-                  {order.items.map((item, index) => (
-                    <li key={index} className="flex items-center gap-3">
                       <img
-                        src={`https://backend-gnpawsentials.onrender.com${item.image}`}
-                        alt={item.name}
+                        src={`https://backend-gnpawsentials.onrender.com${product.image}`}
+                        alt={product.name}
                         className="w-16 h-16 object-cover rounded"
                       />
-                      <span>{item.name}</span>
-                    </li>
-                  ))}
                 </ul>
               </td>
-              <td className="p-3 border border-gray-700">{order.total}</td>
+              <td className="p-3 border border-gray-700">{product.reviews}</td>
             </tr>
           ))}
         </tbody>
@@ -88,7 +91,10 @@ const OrdersPage = () => {
         </button>
       </div>
     </div>
-  );
-};
+        
+        </>
+    )
 
-export default OrdersPage;
+}
+
+export default ProductsPage;

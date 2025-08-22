@@ -3,6 +3,7 @@ import AdminSidebar from "../components/adminSidebar";
 import AdminTopBar from "../components/adminTopbar";
 import OrdersPage from "./ordersPage";
 import DashboardPage from "./dashboardPage";
+import ProductsPage from "./productsPage";
 
 const AdminPage = () => {
   return (
@@ -15,7 +16,7 @@ const AdminPage = () => {
         <main className="flex-1 p-6">
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/products" element={<h2>Products Content</h2>} />
+            <Route path="/products" element={<ProductsPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/customers" element={<h2>Customer Service Content</h2>} />
             <Route path="/analytics" element={<h2>Analytics Content</h2>} />
