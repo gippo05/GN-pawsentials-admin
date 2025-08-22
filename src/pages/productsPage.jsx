@@ -12,14 +12,20 @@ const ProductsPage = () =>{
     useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const token = localStorage.getItem("token");
         const res = await axios.get(
-        //   `https://backend-gnpawsentials.onrender.com/api/products?page=${page}&limit=${limit}`
-        `https://backend-gnpawsentials.onrender.com/api/dashboard/products/admin?page=${page}&limit=${limit}`
+        `https://backend-gnpawsentials.onrender.com/api/dashboard/products/admin?page=${page}&limit=${limit}`, {
+        headers: { Authorization: `Bearer ${token}` } }
         ); 
         setProducts(res.data.products); 
         setTotalPages(res.data.totalPages)
       } catch (error) {
         console.error("Error fetching products:", error);
+         if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/", { replace: true });
+          alert("⚠️ Session expired. Please log in again.");
+            }
       } 
     };
 

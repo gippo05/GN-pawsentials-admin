@@ -15,15 +15,15 @@ const AdminPage = () => {
 
         <main className="flex-1 p-6">
           <Routes>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/orders" element={<OrdersPage />} />
-            <Route path="/customers" element={<h2>Customer Service Content</h2>} />
-            <Route path="/analytics" element={<h2>Analytics Content</h2>} />
-            <Route path="/settings" element={<h2>Settings Content</h2>} />
-            
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="products" element={<ProductsPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="customers" element={<h2>Customer Service Content</h2>} />
+            <Route path="analytics" element={<h2>Analytics Content</h2>} />
+            <Route path="settings" element={<h2>Settings Content</h2>} />
+
             {/* Default redirect */}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
       </div>

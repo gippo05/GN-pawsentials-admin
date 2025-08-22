@@ -10,13 +10,22 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        const token = localStorage.getItem("token");
         const res = await axios.get(
-          `https://backend-gnpawsentials.onrender.com/api/orders?page=${page}&limit=${limit}`
+          `https://backend-gnpawsentials.onrender.com/api/orders?page=${page}&limit=${limit}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }
         );
         setOrders(res.data.orders); // backend returns { orders, total, page, totalPages }
         setTotalPages(res.data.totalPages);
       } catch (error) {
         console.error("Error fetching orders: ", error);
+
+          if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/", { replace: true });
+          alert("⚠️ Session expired. Please log in again.");
+            }
       }
     };
     fetchOrders();

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { 
   FaTachometerAlt, 
   FaShoppingCart, 
@@ -8,8 +8,27 @@ import {
   FaSignOutAlt 
 } from "react-icons/fa";
 import main_logo from "../assets/main_logo.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminSidebar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+const navItems = [
+  { path: "/dashboard", label: "Dashboard", icon: <FaTachometerAlt /> },
+  { path: "/dashboard/products", label: "Products", icon: <FaShoppingCart /> },
+  { path: "/dashboard/orders", label: "Orders", icon: <FaShoppingCart /> },
+  { path: "/dashboard/customers", label: "Customers", icon: <FaUsers /> },
+  { path: "/dashboard/analytics", label: "Analytics", icon: <FaChartLine /> },
+  { path: "/dashboard/settings", label: "Settings", icon: <FaCog /> },
+];
+
+
+const handleLogout = () =>{
+  localStorage.removeItem("token");
+  navigate("/", {replace: true});
+}
+
   return (
     <div className="w-64 h-screen sticky top-0 bg-[#121212] border-r border-gray-800 flex flex-col p-5 text-white">
       {/* Logo */}
@@ -18,42 +37,31 @@ const AdminSidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="list-none p-0 m-0 space-y-4">
-          <li className="flex items-center gap-3">
-            <FaTachometerAlt />
-            <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          </li>
-
-          <li className="flex items-center gap-3">
-            <FaShoppingCart />
-            <Link to="/products" className="hover:text-blue-400">Products</Link>
-          </li>
-
-          <li className="flex items-center gap-3">
-            <FaShoppingCart />
-            <Link to="/orders" className="hover:text-blue-400">Orders</Link>
-          </li>
-
-          <li className="flex items-center gap-3">
-            <FaUsers />
-            <Link to="/customers" className="hover:text-blue-400">Customers</Link>
-          </li>
-
-          <li className="flex items-center gap-3">
-            <FaChartLine />
-            <Link to="/analytics" className="hover:text-blue-400">Analytics</Link>
-          </li>
-
-          <li className="flex items-center gap-3">
-            <FaCog />
-            <Link to="/settings" className="hover:text-blue-400">Settings</Link>
-          </li>
+      <nav className="flex-1 overflow-y-auto hide-scrollbar">
+        <ul className="space-y-2">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                  ${
+                    location.pathname === item.path
+                      ? "bg-gray-800 text-indigo-400"
+                      : "hover:bg-gray-800 hover:text-indigo-400"
+                  }`}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 
       {/* Logout pinned at bottom */}
-      <button className="flex items-center gap-2 font-bold py-2 mt-auto hover:text-red-400">
+      <button 
+      onClick={handleLogout}
+      className="flex items-center gap-2 font-bold py-2 mt-auto px-3 rounded-lg hover:bg-gray-800 hover:text-red-400 transition-colors">
         <FaSignOutAlt /> Logout
       </button>
     </div>
