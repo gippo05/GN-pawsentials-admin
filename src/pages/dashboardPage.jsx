@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "@/config/config";
 
 const DashboardPage = () => {
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalSales, setTotalSales] = useState(0);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const ordersRes = await axios.get("https://backend-gnpawsentials.onrender.com/api/dashboard", {
+        const ordersRes = await axios.get(`${API_URL}/api/dashboard`, {
         headers: { Authorization: `Bearer ${token}` } });
         setTotalOrders(ordersRes.data.totalOrders);
 
-        const salesRes = await axios.get("https://backend-gnpawsentials.onrender.com/api/dashboard/total-sales/totalsales", {
+        const salesRes = await axios.get(`${API_URL}/api/dashboard/total-sales/totalsales`, {
         headers: { Authorization: `Bearer ${token}` } }
         );
         setTotalSales(salesRes.data.totalSales);

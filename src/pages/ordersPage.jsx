@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL } from "@/config/config";
 
-const OrdersPage = () => {
+const OrdersPage = ({onSearchChange, searchedValue}) => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -12,7 +13,7 @@ const OrdersPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `https://backend-gnpawsentials.onrender.com/api/orders?page=${page}&limit=${limit}`, {
+          `${API_URL}/api/orders?page=${page}&limit=${limit}&search=${searchedValue}`, {
             headers: { Authorization: `Bearer ${token}` }
           }
         );
@@ -29,10 +30,24 @@ const OrdersPage = () => {
       }
     };
     fetchOrders();
-  }, [page]);
+  }, [page, searchedValue]);
 
   return (
-    <div className="w-full h-auto p-6">
+    <>
+    <div className="mb-4">
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search orders..."
+          value={searchedValue}
+          onChange={onSearchChange}
+          className="w-full px-4 py-2 rounded-lg bg-[#1E1E1E] text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8884d8]"
+        />
+      </div>
+
+      
+        <div className="w-full h-auto p-6">
       <table className="w-full border-collapse border border-gray-700 text-left">
         <thead className="bg-[#121212] text-white">
           <tr>
@@ -97,6 +112,10 @@ const OrdersPage = () => {
         </button>
       </div>
     </div>
+    </div>
+   
+    </>
+   
   );
 };
 

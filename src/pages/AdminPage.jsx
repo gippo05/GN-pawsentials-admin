@@ -5,7 +5,7 @@ import OrdersPage from "./ordersPage";
 import DashboardPage from "./dashboardPage";
 import ProductsPage from "./productsPage";
 
-const AdminPage = () => {
+const AdminPage = ({onSearchChange, searchedValue}) => {
   return (
     <div className="flex h-screen">
       <AdminSidebar />
@@ -16,8 +16,10 @@ const AdminPage = () => {
         <main className="flex-1 p-6">
           <Routes>
             <Route path="/" element={<DashboardPage />} />
-            <Route path="products" element={<ProductsPage />} />
-            <Route path="orders" element={<OrdersPage />} />
+            <Route path="products" element={<ProductsPage onSearchChange={onSearchChange} 
+                                                          searchedValue={searchedValue}/>} />
+            <Route path="orders" element={<OrdersPage onSearchChange={onSearchChange}
+                                                      searchedValue={searchedValue}/>} />
             <Route path="customers" element={<h2>Customer Service Content</h2>} />
             <Route path="analytics" element={<h2>Analytics Content</h2>} />
             <Route path="settings" element={<h2>Settings Content</h2>} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "@/config/config";
 
 export default function AdminRegister() {
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default function AdminRegister() {
     }
 
     try {
-      const res = await axios.post("https://backend-gnpawsentials.onrender.com/api/admin/register", {
+      const res = await axios.post(`${API_URL}/api/admin/register`, {
         username,
         password,
       });
