@@ -4,6 +4,7 @@ import AdminTopBar from "../components/adminTopbar";
 import OrdersPage from "./ordersPage";
 import DashboardPage from "./dashboardPage";
 import ProductsPage from "./productsPage";
+import EditProductPage from "./EditProductPage";
 
 const AdminPage = ({onSearchChange, searchedValue}) => {
   return (
@@ -18,6 +19,9 @@ const AdminPage = ({onSearchChange, searchedValue}) => {
             <Route path="/" element={<DashboardPage />} />
             <Route path="products" element={<ProductsPage onSearchChange={onSearchChange} 
                                                           searchedValue={searchedValue}/>} />
+            <Route path="products/new" element={<EditProductPage />} />
+            <Route path="products/edit/:id" element={<EditProductPage />}/>
+                  
             <Route path="orders" element={<OrdersPage onSearchChange={onSearchChange}
                                                       searchedValue={searchedValue}/>} />
             <Route path="customers" element={<h2>Customer Service Content</h2>} />

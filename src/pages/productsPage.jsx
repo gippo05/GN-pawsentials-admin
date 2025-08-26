@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { API_URL } from "@/config/config";
+import { useNavigate } from "react-router-dom";
+import API from "@/utils/api";
+import { BASE_URL } from "@/utils/api";
 
 const ProductsPage = ({ onSearchChange, searchedValue }) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `${API_URL}/api/dashboard/products/admin?page=${page}&limit=${limit}&search=${searchedValue}`,
+          `${API.PRODUCTS}/admin?page=${page}&limit=${limit}&search=${searchedValue}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setProducts(res.data.products);
@@ -29,12 +33,35 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
     };
 
     fetchProducts();
-  }, [page]);
+  }, [page, searchedValue]);
 
   // Filter products using searchedValue
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchedValue)
   );
+
+  const handleEdit = (id) =>{
+    navigate(`/dashboard/products/edit/${id}`);
+  }
+
+  const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this product?")) return;
+
+  try {
+    const token = localStorage.getItem("token");
+    await axios.delete(`${API.PRODUCTS}/admin/deleteProduct/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    // Optionally, remove the deleted product from state
+    setProducts((prev) => prev.filter((product) => product._id !== id));
+
+    alert("Product deleted successfully!");
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    alert("Failed to delete product.");
+  }
+};
 
   return (
     <div className="w-full h-auto p-6">
@@ -49,6 +76,15 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
         />
       </div>
 
+              <div className="flex justify-end mb-4">
+                  <button
+                    className="px-4 py-2 bg-[#7C5AC3] text-white rounded hover:bg-[#9C7EDC] cursor-pointer"
+                    onClick={() => navigate("/dashboard/products/new")} // Navigate to your add product page
+                  >
+                    Add New Product +
+                  </button>
+            </div>
+
       {/* Products Table */}
       <table className="w-full border-collapse border border-gray-700 text-left">
         <thead className="bg-[#121212] text-white">
@@ -57,7 +93,7 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
             <th className="p-3 border border-gray-700">Product Name</th>
             <th className="p-3 border border-gray-700">Price</th>
             <th className="p-3 border border-gray-700">Product Image</th>
-            <th className="p-3 border border-gray-700">Product Rating</th>
+            <th className="p-3 border border-gray-700">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -72,14 +108,25 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
                 <td className="p-3 border border-gray-700">{product.price}</td>
                 <td className="p-3 border border-gray-700">
                   <img
-                    src={`https://backend-gnpawsentials.onrender.com${product.image}`}
+                    src={`${BASE_URL}${product.image}`}
                     alt={product.name}
                     className="w-16 h-16 object-cover rounded"
                   />
                 </td>
-                <td className="p-3 border border-gray-700">
-                  {product.reviews}
-                </td>
+                <td className="p-3 border border-gray-700 flex gap-2">
+                    <button
+                      className="px-3 py-1 bg-[#7C5AC3] text-white rounded hover:bg-[#9C7EDC] cursor-pointer"
+                      onClick={() => handleEdit(product._id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="px-3 py-1 bg-[#F87171] text-white rounded hover:bg-[#EF4444] cursor-pointer"
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      Delete
+                    </button>
+               </td>
               </tr>
             ))
           ) : (

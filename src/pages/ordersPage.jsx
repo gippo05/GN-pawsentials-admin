@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "@/config/config";
+import API from "@/utils/api";
+import { BASE_URL } from "@/utils/api";
 
 const OrdersPage = ({onSearchChange, searchedValue}) => {
   const [orders, setOrders] = useState([]);
@@ -13,7 +14,7 @@ const OrdersPage = ({onSearchChange, searchedValue}) => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `${API_URL}/api/orders?page=${page}&limit=${limit}&search=${searchedValue}`, {
+          `${API.ORDERS}?page=${page}&limit=${limit}&search=${searchedValue}`, {
             headers: { Authorization: `Bearer ${token}` }
           }
         );
@@ -76,7 +77,7 @@ const OrdersPage = ({onSearchChange, searchedValue}) => {
                   {order.items.map((item, index) => (
                     <li key={index} className="flex items-center gap-3">
                       <img
-                        src={`https://backend-gnpawsentials.onrender.com${item.image}`}
+                        src={`${BASE_URL}${item.image}`}
                         alt={item.name}
                         className="w-16 h-16 object-cover rounded"
                       />

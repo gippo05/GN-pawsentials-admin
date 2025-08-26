@@ -6,6 +6,7 @@ import ProtectedRoute from './components/protectedRoute'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 
+
 function App() {
   
   const [searchedItems, setsearchedItems] = useState('');
@@ -27,6 +28,7 @@ function App() {
                       <AdminPage onSearchChange={onSearchChange}
                                  searchedValue={searchedItems}/>
                     </ProtectedRoute>} />
+
         </Routes>
       </BrowserRouter>
     </>
