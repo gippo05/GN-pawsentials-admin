@@ -64,26 +64,30 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
 };
 
   return (
-    <div className="w-full h-auto p-6">
-      {/* 🔍 Search bar above the table */}
-      <div className="mb-4">
+
+    <>
+
+
+      <div className="flex justify-between items-center mb-4">
+        {/* Search bar on the left */}
         <input
           type="text"
           placeholder="Search products..."
           value={searchedValue}
           onChange={onSearchChange}
-          className="w-full px-4 py-2 rounded-lg bg-[#1E1E1E] text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8884d8]"
+          className="w-1/4 px-4 py-2 rounded-lg bg-[#1E1E1E] text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8884d8]"
         />
+
+        {/* Add Product button on the right */}
+        <button
+          className="px-4 py-2 bg-[#7C5AC3] text-white rounded hover:bg-[#9C7EDC] cursor-pointer"
+          onClick={() => navigate("/dashboard/products/new")}
+        >
+          Add New Product +
+        </button>
       </div>
 
-              <div className="flex justify-end mb-4">
-                  <button
-                    className="px-4 py-2 bg-[#7C5AC3] text-white rounded hover:bg-[#9C7EDC] cursor-pointer"
-                    onClick={() => navigate("/dashboard/products/new")} // Navigate to your add product page
-                  >
-                    Add New Product +
-                  </button>
-            </div>
+              
 
       {/* Products Table */}
       <table className="w-full border-collapse border border-gray-700 text-left">
@@ -162,7 +166,9 @@ const ProductsPage = ({ onSearchChange, searchedValue }) => {
           Next
         </button>
       </div>
-    </div>
+    
+    </>
+    
   );
 };
 
