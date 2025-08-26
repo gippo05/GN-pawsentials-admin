@@ -10,6 +10,7 @@ const OrdersPage = ({onSearchChange, searchedValue}) => {
   const limit = 5; 
 
   useEffect(() => {
+    
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -35,6 +36,8 @@ const OrdersPage = ({onSearchChange, searchedValue}) => {
 
   return (
     <>
+    <div className="h-screen overflow-hidden"> 
+
     <div className="mb-4">
 
       <div className="mb-4">
@@ -114,6 +117,7 @@ const OrdersPage = ({onSearchChange, searchedValue}) => {
       </div>
     </div>
     </div>
+  </div>
    
     </>
    
