@@ -12,7 +12,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API.ADMINLOGIN}`, {
+      const res = await axios.post(`https://backend-gnpawsentials.onrender.com/api/admin/login`, {
         username,
         password,
       });
