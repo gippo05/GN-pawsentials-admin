@@ -14,6 +14,7 @@ function App() {
   const onSearchChange = (e) => {
     setsearchedItems(e.target.value.toLowerCase());
   };
+  console.log("BASE_URL in Vercel 👉", import.meta.env.VITE_API_URL);
 
   return (
     <>
