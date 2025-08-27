@@ -13,5 +13,7 @@ const API = {
       ADMINLOGIN: `${BASE_URL}/api/admin/login`
 }
 
+console.log("BASE_URL =", BASE_URL)
+
 export default API;
 export {BASE_URL};
