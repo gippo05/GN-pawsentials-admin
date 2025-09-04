@@ -1,12 +1,60 @@
-# React + Vite
+📊** E-Commerce Admin Dashboard**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern admin dashboard for managing the e-commerce store.
+Built with React and connected to a live backend API.
 
-Currently, two official plugins are available:
+🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🛠️ Product Management (CRUD) – Create, update, delete, and view products
 
-## Expanding the ESLint configuration
+📦 Order Management – (WIP) Manage customer orders
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📈 Analytics – (Planned) Dashboard with sales and revenue insights
+
+👤 Customer Management – (Planned) Manage customer data
+
+⚙️ Settings Panel – (Planned) Admin customization options
+
+🛠️ Tech Stack
+
+Frontend: React, Vite, Axios
+
+Styling: TailwindCSS + shadcn/ui
+
+Backend (API): Node.js, Express, MongoDB
+
+📂 Project Structure
+admin-dashboard/
+│── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Dashboard pages (Products, Orders, etc.)
+│   ├── utils/          # API utils & helpers
+│   ├── App.jsx         # Main app entry
+│   └── main.jsx        # React DOM render
+│── public/             # Static assets
+│── package.json
+│── README.md
+
+
+
+📸 Screenshots
+
+![admin4](https://github.com/user-attachments/assets/739aa51f-2855-43b6-b38a-4eb0bafda4d6)
+![admin1](https://github.com/user-attachments/assets/aa1ec0de-f154-4c2a-982d-4a4a96c9a284)
+![admin2](https://github.com/user-attachments/assets/ed5d3552-7afd-4378-9a2a-832df17edeee)
+![admin3](https://github.com/user-attachments/assets/153dca8f-144a-4904-92aa-7cd4b92be386)
+
+
+
+
+🌟 Roadmap
+
+ Product CRUD
+
+ Order CRUD
+
+ Analytics Dashboard
+
+ Customer Management
+
+ Admin Settings
